@@ -4,107 +4,95 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CDA REVE</title>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" 
-    integrity="sha512-xho7uO3yaepRzD8Xt+5ZmE5qFEoRMZrBQ0LZ2Z1HZTgU6YV1BdD6apzGi+qVuDnOKLg5JZcccbcfzMZb8DJw0A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet" />
   <style>
-    /* Background animated gradient */
-    @keyframes bgGradient {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    /* Background flickering red lantern glow */
+    @keyframes lanternGlow {
+      0%, 100% {
+        box-shadow: 0 0 30px 5px #ff3b3b;
+      }
+      50% {
+        box-shadow: 0 0 50px 12px #ff1a1a;
+      }
+    }
+
+    /* Falling cherry blossom petals */
+    @keyframes petalFall {
+      0% {
+        transform: translateY(-10px) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
     }
 
     body {
       margin: 0;
-      font-family: 'Anton', sans-serif;
-      background: linear-gradient(270deg, #0f0c29, #302b63, #24243e);
-      background-size: 600% 600%;
-      animation: bgGradient 20s ease infinite;
-      color: #fff;
-      text-align: center;
-      overflow-x: hidden;
       height: 100vh;
+      overflow: hidden;
+      background: linear-gradient(180deg, #0d0208, #2e0a05);
+      color: #f5f5dc;
+      font-family: 'ZCOOL KuaiLe', cursive;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      position: relative;
+      text-align: center;
     }
 
-    /* Glitch text effect */
     h1 {
       font-size: 4rem;
-      position: relative;
-      color: #fff;
-      letter-spacing: 4px;
-      animation: glitch 1.5s infinite;
-      user-select: none;
       margin-bottom: 40px;
-    }
-
-    @keyframes glitch {
-      0% {
-        text-shadow: 2px 0 red, -2px 0 cyan;
-      }
-      20% {
-        text-shadow: -2px 0 red, 2px 0 cyan;
-      }
-      40% {
-        text-shadow: 2px 2px red, -2px -2px cyan;
-      }
-      60% {
-        text-shadow: -2px -2px red, 2px 2px cyan;
-      }
-      80% {
-        text-shadow: 2px 0 red, -2px 0 cyan;
-      }
-      100% {
-        text-shadow: -2px 0 red, 2px 0 cyan;
-      }
+      letter-spacing: 4px;
+      color: #ffb400;
+      text-shadow:
+        0 0 5px #ffb400,
+        0 0 10px #ffb400,
+        0 0 20px #ffb400,
+        0 0 40px #ff4e00,
+        0 0 80px #ff4e00;
+      animation: lanternGlow 3s ease-in-out infinite;
+      user-select: none;
     }
 
     /* Social icons container */
     .socials {
-      margin-bottom: 60px;
       display: flex;
-      gap: 40px;
+      gap: 50px;
+      margin-bottom: 60px;
       justify-content: center;
+      z-index: 10;
     }
 
-    /* Social icons style */
-    .socials a {
-      color: #fff;
-      font-size: 2.5rem;
-      text-decoration: none;
-      transition: color 0.3s ease, transform 0.3s ease;
-      filter: drop-shadow(0 0 5px #0ff);
+    /* SVG icons style */
+    .socials a svg {
+      width: 48px;
+      height: 48px;
+      fill: #ffb400;
+      filter: drop-shadow(0 0 4px #ffb400);
+      transition: transform 0.3s ease, fill 0.3s ease;
+      cursor: pointer;
     }
 
-    /* Glow pulse animation */
-    @keyframes pulseGlow {
-      0%, 100% {
-        filter: drop-shadow(0 0 5px #0ff);
-        transform: scale(1);
-      }
-      50% {
-        filter: drop-shadow(0 0 15px #0ff);
-        transform: scale(1.1);
-      }
+    .socials a:hover svg {
+      fill: #ff4e00;
+      transform: scale(1.2) rotate(10deg);
+      filter: drop-shadow(0 0 15px #ff4e00);
     }
 
-    .socials a:hover {
-      animation: pulseGlow 1.5s infinite;
-      color: #0ff;
-      transform: scale(1.2);
-    }
-
-    /* Image floating animation */
+    /* Floating image with lantern glow */
     .images img {
       width: 320px;
       max-width: 90vw;
-      border-radius: 15px;
-      box-shadow: 0 0 20px #0ff;
+      border-radius: 20px;
+      box-shadow:
+        0 0 30px #ffb400,
+        0 0 60px #ff4e00;
       animation: float 4s ease-in-out infinite;
+      z-index: 10;
     }
 
     @keyframes float {
@@ -112,17 +100,32 @@
         transform: translateY(0);
       }
       50% {
-        transform: translateY(-20px);
+        transform: translateY(-25px);
       }
     }
 
-    /* Responsive */
+    /* Cherry blossom petals */
+    .petal {
+      position: fixed;
+      top: -50px;
+      width: 20px;
+      height: 20px;
+      background: radial-gradient(circle at center, #ffb6c1 0%, transparent 80%);
+      border-radius: 50% 50% 50% 50% / 70% 70% 30% 30%;
+      opacity: 0.8;
+      animation: petalFall linear infinite;
+      pointer-events: none;
+      filter: drop-shadow(0 0 3px #ffb6c1);
+    }
+
+    /* Responsive adjustments */
     @media (min-width: 768px) {
       h1 {
-        font-size: 5rem;
+        font-size: 6rem;
       }
-      .socials a {
-        font-size: 3rem;
+      .socials a svg {
+        width: 64px;
+        height: 64px;
       }
       .images img {
         width: 400px;
@@ -134,15 +137,24 @@
 
   <h1>CDA REVE</h1>
 
-  <div class="socials">
+  <div class="socials" aria-label="Social media links">
     <a href="https://www.instagram.com/cdareve/" target="_blank" aria-label="Instagram">
-      <i class="fab fa-instagram"></i>
+      <!-- Instagram SVG Icon -->
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 2A3.75 3.75 0 004 7.75v8.5A3.75 3.75 0 007.75 20h8.5a3.75 3.75 0 003.75-3.75v-8.5A3.75 3.75 0 0016.25 4h-8.5zm8.75 1a1 1 0 110 2 1 1 0 010-2zM12 7a5 5 0 110 10 5 5 0 010-10zm0 2a3 3 0 100 6 3 3 0 000-6z"/>
+      </svg>
     </a>
     <a href="https://www.youtube.com/@cdareve" target="_blank" aria-label="YouTube">
-      <i class="fab fa-youtube"></i>
+      <!-- YouTube SVG Icon -->
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M21.8 7.2a2.7 2.7 0 00-1.9-1.9C18.48 5 12 5 12 5s-6.48 0-7.9.3a2.7 2.7 0 00-1.9 1.9A28.39 28.39 0 002 12a28.39 28.39 0 00.3 4.8 2.7 2.7 0 001.9 1.9c1.42.3 7.9.3 7.9.3s6.48 0 7.9-.3a2.7 2.7 0 001.9-1.9A28.39 28.39 0 0022 12a28.39 28.39 0 00-.2-4.8zM10 15.5v-7l6 3.5-6 3.5z"/>
+      </svg>
     </a>
     <a href="https://open.spotify.com/artist/7zPyy6FIW2GZSnzcbuVY7b?si=kOWVKIPxT2OBLOdSO2Lu9w" target="_blank" aria-label="Spotify">
-      <i class="fab fa-spotify"></i>
+      <!-- Spotify SVG Icon -->
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 2a10 10 0 1010 10A10 10 0 0012 2zm4.45 14.1a.75.75 0 01-1 .25c-2.74-1.66-6.2-2.04-10.25-1.06a.75.75 0 11-.34-1.44c4.58-1.08 8.47-.61 11.55 1.31a.75.75 0 01.04 1.06zm1.45-3.13a.94.94 0 01-1.25.3c-3.15-1.9-7.95-2.46-11.67-1.28a.94.94 0 11-.57-1.78c4.26-1.38 9.64-.76 13.24 1.5a.94.94 0 01.25 1.26zm0-3.19a1.14 1.14 0 01-1.51.34c-2.72-1.6-7.2-1.76-9.97-.92a1.14 1.14 0 11-.66-2.14c3.47-1.06 8.43-.83 11.79 1.1a1.14 1.14 0 01.35 1.62z"/>
+      </svg>
     </a>
   </div>
 
@@ -150,5 +162,20 @@
     <img src="Screenshot 2025-04-07 at 02.00.26.png" alt="CDA REVE" />
   </div>
 
+  <!-- Cherry blossom petals generated by JavaScript -->
+  <script>
+    const petalsCount = 20;
+    for(let i = 0; i < petalsCount; i++) {
+      const petal = document.createElement('div');
+      petal.classList.add('petal');
+      petal.style.left = Math.random() * 100 + 'vw';
+      petal.style.animationDuration = (5 + Math.random() * 10) + 's';
+      petal.style.animationDelay = (Math.random() * 15) + 's';
+      petal.style.width = (10 + Math.random() * 15) + 'px';
+      petal.style.height = (10 + Math.random() * 15) + 'px';
+      petal.style.opacity = 0.5 + Math.random() * 0.5;
+      document.body.appendChild(petal);
+    }
+  </script>
 </body>
 </html>
