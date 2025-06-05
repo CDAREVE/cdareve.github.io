@@ -1,157 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CDA REVE</title>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet" />
-  <style>
-    /* Background flickering red lantern glow */
-    @keyframes lanternGlow {
-      0%, 100% {
-        box-shadow: 0 0 30px 5px #ff3b3b;
-      }
-      50% {
-        box-shadow: 0 0 50px 12px #ff1a1a;
-      }
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CDA REVE</title>
+<style>
+  /* Reset & base */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #0a1a2a, #001f3f);
+    font-family: Helvetica, Arial, sans-serif;
+    color: #c0c0c0; /* silver text */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    user-select: none;
+  }
 
-    /* Falling cherry blossom petals */
-    @keyframes petalFall {
-      0% {
-        transform: translateY(-10px) rotate(0deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(100vh) rotate(360deg);
-        opacity: 0;
-      }
-    }
+  /* Logo style */
+  h1 {
+    font-weight: 600;
+    font-size: 3.5rem;
+    letter-spacing: 4px;
+    color: #c0c0c0;
+    text-shadow:
+      0 0 5px #99ccff,
+      0 0 10px #3366ff,
+      0 0 20px #0033cc,
+      0 0 30px #ff0033; /* subtle red glow */
+    margin-bottom: 30px;
+  }
 
-    body {
-      margin: 0;
-      height: 100vh;
-      overflow: hidden;
-      background: linear-gradient(180deg, #0d0208, #2e0a05);
-      color: #f5f5dc;
-      font-family: 'ZCOOL KuaiLe', cursive;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      text-align: center;
-    }
+  /* Social icons container */
+  .socials {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 50px;
+  }
 
-    h1 {
-      font-size: 4rem;
-      margin-bottom: 40px;
-      letter-spacing: 4px;
-      color: #ffb400;
-      text-shadow:
-        0 0 5px #ffb400,
-        0 0 10px #ffb400,
-        0 0 20px #ffb400,
-        0 0 40px #ff4e00,
-        0 0 80px #ff4e00;
-      animation: lanternGlow 3s ease-in-out infinite;
-      user-select: none;
-    }
+  /* Social icons SVG */
+  .socials a svg {
+    width: 28px;
+    height: 28px;
+    fill: #c0c0c0;
+    filter: drop-shadow(0 0 3px #99ccff);
+    transition: fill 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+  }
+  .socials a:hover svg {
+    fill: #3366ff;
+    transform: scale(1.3);
+    filter: drop-shadow(0 0 8px #3366ff);
+  }
 
-    /* Social icons container */
-    .socials {
-      display: flex;
-      gap: 50px;
-      margin-bottom: 60px;
-      justify-content: center;
-      z-index: 10;
-    }
+  /* Image */
+  .images img {
+    width: 280px;
+    max-width: 90vw;
+    border-radius: 16px;
+    box-shadow:
+      0 0 15px #3366ff,
+      0 0 40px #001f3f;
+    animation: float 5s ease-in-out infinite;
+  }
 
-    /* SVG icons style */
-    .socials a svg {
-      width: 48px;
-      height: 48px;
-      fill: #ffb400;
-      filter: drop-shadow(0 0 4px #ffb400);
-      transition: transform 0.3s ease, fill 0.3s ease;
-      cursor: pointer;
-    }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
 
-    .socials a:hover svg {
-      fill: #ff4e00;
-      transform: scale(1.2) rotate(10deg);
-      filter: drop-shadow(0 0 15px #ff4e00);
-    }
+  /* Floating sprites container */
+  .sprites {
+    pointer-events: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: visible;
+    z-index: 1;
+  }
 
-    /* Floating image with lantern glow */
-    .images img {
-      width: 320px;
-      max-width: 90vw;
-      border-radius: 20px;
-      box-shadow:
-        0 0 30px #ffb400,
-        0 0 60px #ff4e00;
-      animation: float 4s ease-in-out infinite;
-      z-index: 10;
-    }
+  /* Common sprite style */
+  .sprite {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    filter: drop-shadow(0 0 4px #3366ff);
+    animation-timing-function: linear;
+  }
 
-    @keyframes float {
-      0%, 100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-25px);
-      }
-    }
+  /* Swords pixel-art */
+  .sword {
+    background:
+      linear-gradient(45deg, transparent 12%, #c0c0c0 12%, #c0c0c0 25%, transparent 25%),
+      linear-gradient(-45deg, transparent 12%, #c0c0c0 12%, #c0c0c0 25%, transparent 25%);
+    background-size: 8px 8px;
+    background-repeat: repeat;
+    border-radius: 3px;
+  }
 
-    /* Cherry blossom petals */
-    .petal {
-      position: fixed;
-      top: -50px;
-      width: 20px;
-      height: 20px;
-      background: radial-gradient(circle at center, #ffb6c1 0%, transparent 80%);
-      border-radius: 50% 50% 50% 50% / 70% 70% 30% 30%;
-      opacity: 0.8;
-      animation: petalFall linear infinite;
-      pointer-events: none;
-      filter: drop-shadow(0 0 3px #ffb6c1);
-    }
+  /* Small figure pixel-art (like a ghost or small creature) */
+  .figure {
+    background:
+      radial-gradient(circle at 12px 12px, #3366ff 6px, transparent 8px),
+      radial-gradient(circle at 8px 18px, #ff0033 4px, transparent 6px);
+    border-radius: 8px 8px 0 0;
+    box-shadow:
+      3px 0 0 #3366ff,
+      6px 0 0 #3366ff,
+      9px 0 0 #3366ff;
+  }
 
-    /* Responsive adjustments */
-    @media (min-width: 768px) {
-      h1 {
-        font-size: 6rem;
-      }
-      .socials a svg {
-        width: 64px;
-        height: 64px;
-      }
-      .images img {
-        width: 400px;
-      }
-    }
-  </style>
+</style>
 </head>
 <body>
 
   <h1>CDA REVE</h1>
 
   <div class="socials" aria-label="Social media links">
-    <a href="https://www.instagram.com/cdareve/" target="_blank" aria-label="Instagram">
-      <!-- Instagram SVG Icon -->
+    <a href="https://www.instagram.com/cdareve/" target="_blank" aria-label="Instagram" rel="noopener">
+      <!-- Instagram SVG -->
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 2A3.75 3.75 0 004 7.75v8.5A3.75 3.75 0 007.75 20h8.5a3.75 3.75 0 003.75-3.75v-8.5A3.75 3.75 0 0016.25 4h-8.5zm8.75 1a1 1 0 110 2 1 1 0 010-2zM12 7a5 5 0 110 10 5 5 0 010-10zm0 2a3 3 0 100 6 3 3 0 000-6z"/>
       </svg>
     </a>
-    <a href="https://www.youtube.com/@cdareve" target="_blank" aria-label="YouTube">
-      <!-- YouTube SVG Icon -->
+    <a href="https://www.youtube.com/@cdareve" target="_blank" aria-label="YouTube" rel="noopener">
+      <!-- YouTube SVG -->
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M21.8 7.2a2.7 2.7 0 00-1.9-1.9C18.48 5 12 5 12 5s-6.48 0-7.9.3a2.7 2.7 0 00-1.9 1.9A28.39 28.39 0 002 12a28.39 28.39 0 00.3 4.8 2.7 2.7 0 001.9 1.9c1.42.3 7.9.3 7.9.3s6.48 0 7.9-.3a2.7 2.7 0 001.9-1.9A28.39 28.39 0 0022 12a28.39 28.39 0 00-.2-4.8zM10 15.5v-7l6 3.5-6 3.5z"/>
       </svg>
     </a>
-    <a href="https://open.spotify.com/artist/7zPyy6FIW2GZSnzcbuVY7b?si=kOWVKIPxT2OBLOdSO2Lu9w" target="_blank" aria-label="Spotify">
-      <!-- Spotify SVG Icon -->
+    <a href="https://open.spotify.com/artist/7zPyy6FIW2GZSnzcbuVY7b?si=kOWVKIPxT2OBLOdSO2Lu9w" target="_blank" aria-label="Spotify" rel="noopener">
+      <!-- Spotify SVG -->
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M12 2a10 10 0 1010 10A10 10 0 0012 2zm4.45 14.1a.75.75 0 01-1 .25c-2.74-1.66-6.2-2.04-10.25-1.06a.75.75 0 11-.34-1.44c4.58-1.08 8.47-.61 11.55 1.31a.75.75 0 01.04 1.06zm1.45-3.13a.94.94 0 01-1.25.3c-3.15-1.9-7.95-2.46-11.67-1.28a.94.94 0 11-.57-1.78c4.26-1.38 9.64-.76 13.24 1.5a.94.94 0 01.25 1.26zm0-3.19a1.14 1.14 0 01-1.51.34c-2.72-1.6-7.2-1.76-9.97-.92a1.14 1.14 0 11-.66-2.14c3.47-1.06 8.43-.83 11.79 1.1a1.14 1.14 0 01.35 1.62z"/>
       </svg>
@@ -159,22 +145,64 @@
   </div>
 
   <div class="images">
-    <img src="Screenshot 2025-04-07 at 02.00.26.png" alt="CDA REVE" />
+    <img src="Screenshot 2025-04-07 at 02.00.26.png" alt="CDA REVE Image" />
   </div>
 
-  <!-- Cherry blossom petals generated by JavaScript -->
+  <!-- Floating sprites -->
+  <div class="sprites"></div>
+
   <script>
-    const petalsCount = 20;
-    for(let i = 0; i < petalsCount; i++) {
-      const petal = document.createElement('div');
-      petal.classList.add('petal');
-      petal.style.left = Math.random() * 100 + 'vw';
-      petal.style.animationDuration = (5 + Math.random() * 10) + 's';
-      petal.style.animationDelay = (Math.random() * 15) + 's';
-      petal.style.width = (10 + Math.random() * 15) + 'px';
-      petal.style.height = (10 + Math.random() * 15) + 'px';
-      petal.style.opacity = 0.5 + Math.random() * 0.5;
-      document.body.appendChild(petal);
+    const spritesContainer = document.querySelector('.sprites');
+
+    // Helper random number between min/max
+    function rand(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    // Create swords and figures randomly floating
+    function createSprite(type) {
+      const sprite = document.createElement('div');
+      sprite.classList.add('sprite', type);
+
+      // Start position randomly top or bottom side
+      sprite.style.top = rand(0, window.innerHeight) + 'px';
+      sprite.style.left = (type === 'sword' ? -30 : window.innerWidth + 30) + 'px'; // swords from left, figures from right
+
+      // Animation speed and direction
+      const duration = rand(12, 22);
+      sprite.style.animationDuration = duration + 's';
+
+      // Animate horizontal movement from left to right or right to left
+      const keyframesName = `move-${type}-${Math.floor(Math.random()*1000)}`;
+      const startX = (type === 'sword' ? -30 : window.innerWidth + 30);
+      const endX = (type === 'sword' ? window.innerWidth + 30 : -30);
+
+      // Create keyframes dynamically for each sprite
+      const styleSheet = document.styleSheets[0];
+      const rule = `
+        @keyframes ${keyframesName} {
+          0% { transform: translateX(${startX}px) translateY(0) rotate(0deg); opacity: 1; }
+          100% { transform: translateX(${endX}px) translateY(${rand(-50, 50)}px) rotate(${rand(360,720)}deg); opacity: 0; }
+        }
+      `;
+      styleSheet.insertRule(rule, styleSheet.cssRules.length);
+
+      sprite.style.animationName = keyframesName;
+      sprite.style.animationTimingFunction = 'linear';
+      sprite.style.animationIterationCount = 'infinite';
+
+      spritesContainer.appendChild(sprite);
+
+      // Remove sprite after one animation cycle and recreate it (to simulate continuous flow)
+      sprite.addEventListener('animationiteration', () => {
+        // Reset position randomly vertically
+        sprite.style.top = rand(0, window.innerHeight) + 'px';
+      });
+    }
+
+    // Create multiple sprites
+    for(let i=0; i<8; i++) {
+      createSprite(i % 2 === 0 ? 'sword' : 'figure');
     }
   </script>
 </body>
