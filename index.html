@@ -2,52 +2,131 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CDA REVE</title>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-xho7uO3yaepRzD8Xt+5ZmE5qFEoRMZrBQ0LZ2Z1HZTgU6YV1BdD6apzGi+qVuDnOKLg5JZcccbcfzMZb8DJw0A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" 
+    integrity="sha512-xho7uO3yaepRzD8Xt+5ZmE5qFEoRMZrBQ0LZ2Z1HZTgU6YV1BdD6apzGi+qVuDnOKLg5JZcccbcfzMZb8DJw0A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
+    /* Background animated gradient */
+    @keyframes bgGradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
     body {
       margin: 0;
-      background-color: #000;
-      color: #fff;
       font-family: 'Anton', sans-serif;
-      text-align: center;
-    }
-
-    h1 {
-      font-size: 3rem;
-      margin-top: 60px;
-      font-weight: 400;
-      letter-spacing: 3px;
-    }
-
-    .socials {
-      margin: 30px 0;
-    }
-
-    .socials a {
-      margin: 0 15px;
+      background: linear-gradient(270deg, #0f0c29, #302b63, #24243e);
+      background-size: 600% 600%;
+      animation: bgGradient 20s ease infinite;
       color: #fff;
-      font-size: 2rem;
+      text-align: center;
+      overflow-x: hidden;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Glitch text effect */
+    h1 {
+      font-size: 4rem;
+      position: relative;
+      color: #fff;
+      letter-spacing: 4px;
+      animation: glitch 1.5s infinite;
+      user-select: none;
+      margin-bottom: 40px;
+    }
+
+    @keyframes glitch {
+      0% {
+        text-shadow: 2px 0 red, -2px 0 cyan;
+      }
+      20% {
+        text-shadow: -2px 0 red, 2px 0 cyan;
+      }
+      40% {
+        text-shadow: 2px 2px red, -2px -2px cyan;
+      }
+      60% {
+        text-shadow: -2px -2px red, 2px 2px cyan;
+      }
+      80% {
+        text-shadow: 2px 0 red, -2px 0 cyan;
+      }
+      100% {
+        text-shadow: -2px 0 red, 2px 0 cyan;
+      }
+    }
+
+    /* Social icons container */
+    .socials {
+      margin-bottom: 60px;
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+    }
+
+    /* Social icons style */
+    .socials a {
+      color: #fff;
+      font-size: 2.5rem;
       text-decoration: none;
-      transition: transform 0.2s ease;
+      transition: color 0.3s ease, transform 0.3s ease;
+      filter: drop-shadow(0 0 5px #0ff);
+    }
+
+    /* Glow pulse animation */
+    @keyframes pulseGlow {
+      0%, 100% {
+        filter: drop-shadow(0 0 5px #0ff);
+        transform: scale(1);
+      }
+      50% {
+        filter: drop-shadow(0 0 15px #0ff);
+        transform: scale(1.1);
+      }
     }
 
     .socials a:hover {
-      color: #aaa;
+      animation: pulseGlow 1.5s infinite;
+      color: #0ff;
       transform: scale(1.2);
     }
 
-    .images {
-      margin-top: 40px;
+    /* Image floating animation */
+    .images img {
+      width: 320px;
+      max-width: 90vw;
+      border-radius: 15px;
+      box-shadow: 0 0 20px #0ff;
+      animation: float 4s ease-in-out infinite;
     }
 
-    .images img {
-      max-width: 400px;
-      width: 90%;
-      border-radius: 12px;
-      box-shadow: 0 0 15px #fff2;
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
+    /* Responsive */
+    @media (min-width: 768px) {
+      h1 {
+        font-size: 5rem;
+      }
+      .socials a {
+        font-size: 3rem;
+      }
+      .images img {
+        width: 400px;
+      }
     }
   </style>
 </head>
@@ -68,7 +147,7 @@
   </div>
 
   <div class="images">
-    <img src="Screenshot 2025-04-07 at 02.00.26.png" alt="CDA REVE image" />
+    <img src="Screenshot 2025-04-07 at 02.00.26.png" alt="CDA REVE" />
   </div>
 
 </body>
